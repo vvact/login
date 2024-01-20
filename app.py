@@ -65,6 +65,9 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}, email={self.email}, balance={self.balance})"
 
+with app.app_context():
+        db.create_all()
+
 class RegistrationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -227,6 +230,5 @@ def my_account():
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+   
     app.run(debug=True)
