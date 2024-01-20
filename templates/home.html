@@ -1,0 +1,14 @@
+<!-- home.html -->
+
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Welcome to the Homepage</h2>
+    
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.first_name }} {{ current_user.last_name }}!</p>
+        <p><a href="{{ url_for('my_account') }}">My Account</a></p>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p>Welcome! Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a>.</p>
+    {% endif %}
+{% endblock %}
