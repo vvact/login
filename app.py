@@ -29,15 +29,6 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'victorfx7752@gmail.com'
 app.config['MAIL_PASSWORD'] = 'zxyq nwtq ntcq '
 
-db_connection = app.config['SQLALCHEMY_DATABASE_URI']
-engine = create_engine(db_connection,
-                       connect_args={
-                          "ssl":{
-                             "ssl_ca":"/etc/ssl/cert.pem"
-                          }
-                       })
-
-
 
 
 db = SQLAlchemy(app)
