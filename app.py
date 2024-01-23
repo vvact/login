@@ -4,19 +4,19 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 from flask_migrate import Migrate
-from bcrypt import hashpw, gensalt, checkpw
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_mail import Mail, Message
-import os
-from sqlalchemy import create_engine, text
-import MySQLdb.cursors
-from flask_mysqldb import MySQL
 import secrets
-from OpenSSL import SSL,crypto
+from flask.cli import FlaskGroup
+from bcrypt import hashpw, gensalt,checkpw
+#from sqlalchemy import create_engine
+
+
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost:3306/vic'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'buda'
 app.config['SESSION_COOKIE_SECURE'] = True
@@ -27,7 +27,7 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'victorfx7752@gmail.com'
-app.config['MAIL_PASSWORD'] = 'zxyq nwtq ntcq '
+app.config['MAIL_PASSWORD'] = '  '
 
 
 
@@ -65,8 +65,8 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}, email={self.email}, balance={self.balance})"
 
-with app.app_context():
-        db.create_all()
+# with app.app_context():
+#         db.create_all()
 
 class RegistrationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -230,5 +230,4 @@ def my_account():
 
 
 if __name__ == '__main__':
-   
     app.run(debug=True)
